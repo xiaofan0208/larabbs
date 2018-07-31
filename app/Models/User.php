@@ -14,8 +14,8 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
-        'name', 'email', 'password',
+    protected $fillable = [     // 可以写入的字段
+        'name', 'email', 'password','introduction'
     ];
 
     /**
