@@ -12,7 +12,10 @@ class AppServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot()
-    {
+	{
+		\App\Models\User::observe(\App\Observers\UserObserver::class);
+		\App\Models\Topic::observe(\App\Observers\TopicObserver::class);
+
         //中文时间提示，需要对 Carbon 进行本地化设置
         \Carbon\Carbon::setLocale('zh');
     }
