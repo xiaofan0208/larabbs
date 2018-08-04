@@ -6,11 +6,14 @@ use App\Models\Topic;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TopicRequest;
+use App\Models\Category ; 
+use Auth;
 
 class TopicsController extends Controller
 {
     public function __construct()
     {
+		// 限制未登录用户发帖
         $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 
@@ -26,14 +29,21 @@ class TopicsController extends Controller
         return view('topics.show', compact('topic'));
     }
 
+	// 发帖页面
 	public function create(Topic $topic)
 	{
-		return view('topics.create_and_edit', compact('topic'));
+		// 创建帖子时可以 选择分类
+		$categories = Category::all() ; 
+		return view('topics.create_and_edit', compact('topic' , 'categories'));
 	}
 
-	public function store(TopicRequest $request)
+	// 创建帖子后的处理 ( 请求先经过 TopicRequest 验证)
+	public function store(TopicRequest $request , Topic $topic )
 	{
-		$topic = Topic::create($request->all());
+		$topic->fill(  $request->all() );
+		$topic->user_id = Auth::id();
+		$topic->save() ;
+	//	$topic = Topic::create($request->all());
 		return redirect()->route('topics.show', $topic->id)->with('message', 'Created successfully.');
 	}
 
