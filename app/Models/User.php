@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\Topic;
 
 class User extends Authenticatable
 {
@@ -26,4 +27,10 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    // 用户与话题中间的关系是 一对多 的关系，一个用户拥有多个主题
+    public function topics()
+    {
+        return $this->hasMany( Topic::class );
+    }
 }
