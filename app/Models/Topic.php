@@ -45,4 +45,12 @@ class Topic extends Model
         // // 按照创建时间排序
         return $query->orderBy('created_at','desc');
     }
+
+    /*  获取话题链接地址 
+        如果存在slug，则加上slug ;  如 http://larabbs.test/topics/113/slug-translation-test
+    */
+    public function link( $params = [] )
+    {
+        return route('topics.show' ,array_merge([$this->id , $this->slug], $params ) );
+    }
 }

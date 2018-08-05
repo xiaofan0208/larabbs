@@ -2,7 +2,7 @@
 @if ( count($topics) )
     @foreach($topics as $topic )
         <li class="list-group-item">
-            <a href="{{ route('topics.show' , $topic->id  ) }}">
+            <a href="{{  $topic->link() }}">
                 {{ $topic->title }}
             </a>
             <span class="meta pull-right">
