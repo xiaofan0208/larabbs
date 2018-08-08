@@ -7,8 +7,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\Topic;
 use Auth;
 
+use Spatie\Permission\Traits\HasRoles;
+
 class User extends Authenticatable
 {
+    use HasRoles;
+    
     use Notifiable {
         notify as protected laravelNotify ;// 把系统的notify重命名为laravelNotify
     }
