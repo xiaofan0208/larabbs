@@ -81,6 +81,8 @@ return array(
     'menu' => [
         '用户与权限' => [
             'users',
+            'roles',
+            'permissions',
         ],
     ],
 
